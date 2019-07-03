@@ -209,78 +209,17 @@ public class MessaginActivity extends AppCompatActivity implements GetMessageAda
 
 
 
-            messagesList.addOnListChangedCallback(new ObservableList.OnListChangedCallback<ObservableList<Datum>>() {
-                @Override
-                public void onChanged(ObservableList<Datum> sender) {
+            
 
-
-                }
-
-                @Override
-                public void onItemRangeChanged(ObservableList<Datum> sender, int positionStart, int itemCount) {
-
-
-                }
-
-                @Override
-                public void onItemRangeInserted(ObservableList<Datum> sender, int positionStart, int itemCount) {
-
-                    if(Status.getMsgStatus()==true&&adapter!=null)
-                    {
-                        adapter.setList(messagesList);
-                        adapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(messagesList.size() - 1);
-                    }
-                    else
-                        if(adapter!=null)
-                        {
-                            adapter.setList(messagesList);
-                            adapter.notifyDataSetChanged();
-                            recyclerView.scrollToPosition(messagesList.size() - 1);
-                        }
-                        else
-                    {
-                        adapter = new GetMessageAdapter(messagesList, getApplicationContext(), username,MessaginActivity.this);
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.scrollToPosition(messagesList.size() - 1);
-                    }
-
-                    ObservableMap<String,List<Datum>> newBackup;
-                    newBackup=new ObservableArrayMap<>();
-                    newBackup=MenuActivity.getBackupMap();
-                    newBackup.put(recipent,messagesList);
-                    MenuActivity.setBackupMap(newBackup);
-
-
-
-
-
-                }
-
-                @Override
-                public void onItemRangeMoved(ObservableList<Datum> sender, int fromPosition, int toPosition, int itemCount) {
-
-
-                }
-
-                @Override
-                public void onItemRangeRemoved(ObservableList<Datum> sender, int positionStart, int itemCount) {
-
-
-                }
-            });
-
-            if(Splashscreen.getBackupMap().get(recipent)!=null)
-            {
-                messagesList.addAll(Splashscreen.getBackupMap().get(recipent));
-            }
-            else
-            {
+           
                 Toast.makeText(MessaginActivity.this,"Reloading the messages, please wait",Toast.LENGTH_SHORT).show();
 
                 getMessages = new GetMessages(username, password, recipent);
                 getMesseages(getMessages);
-            }
+                adapter = new GetMessageAdapter(messagesList, getApplicationContext(), username,MessaginActivity.this);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.scrollToPosition(messagesList.size() - 1);
+            
             sendMessageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
