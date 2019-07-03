@@ -176,9 +176,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showNotificationInApp(String message, String recipent) {
 
+         Intent i = new Intent(this,MessaginActivity.class);
+        i.putExtra("recipent",recipent);
+        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
 
 
-        MessaginActivity.getMesseages( new GetMessages(username, password, recipent));
+        //MessaginActivity.getMesseages( new GetMessages(username, password, recipent));
 
 
 
@@ -188,8 +193,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent i = new Intent(this,MessaginActivity.class);
         i.putExtra("recipent",recipent);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
 
 
